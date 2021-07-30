@@ -116,4 +116,18 @@ position: absolute;
 bottom: 50px;
 }
 
+@media only screen and (max-width: 1422px){
+    .connection-left-side-wrapper {
+       display: none;
+    }
+    .connection-right-side-wrapper {
+        width: 100%;
+    }
+}
 
+@media only screen and (max-width: 350px){
+    .container-connection {
+       width: 100%;
+       padding: 0px 10px;
+    }
+}

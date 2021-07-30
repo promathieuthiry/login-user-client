@@ -1,9 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from "react-router-dom"
 import Credentials from '../Helper/Context';
-import "./Login.css"
+import "./Connection.css"
 import Cover from "../assets/img/cover.jpg"
-import { toast } from 'react-toastify';
 import emitToast from "../Helper/toastEmitter"
 import useKeypress from '../CustomHooks/useKeyPress';
 
