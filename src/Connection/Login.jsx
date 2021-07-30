@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from "react-router-dom"
-import Credentials from '../Helper/Context';
+import Credentials, { UserInfo } from '../Helper/Context';
 import "./Connection.css"
 import Cover from "../assets/img/cover.jpg"
 import emitToast from "../Helper/toastEmitter"
@@ -42,7 +42,6 @@ function Login() {
                 return emitToast("error", data.message)
             }
 
-
             if (data.credentials) {
                 localStorage.setItem('credentials', JSON.stringify(data.credentials));
                 setLoginData({ email: "", password: "" })
@@ -65,7 +64,8 @@ function Login() {
     return (
         <div className="connection-wrapper">
             <div className="connection-left-side-wrapper">
-                <img src={Cover} alt="cover" className="image-cover" />
+                {/* <img src={Cover} alt="cover" className="image-cover" /> */}
+                <img src={"https://github.com/promathieuthiry/login-user-client/blob/main/src/assets/img/cover.jpg?raw=true"} alt="cover" className="image-cover" />
             </div>
             <div className="connection-right-side-wrapper">
                 <div className="container-connection">

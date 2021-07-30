@@ -1,4 +1,6 @@
 import FetchData from "./FetchData"
+import EventEmitter from "./EventEmitter"
+
 
 async function CheckConnection() {
     try {
@@ -6,13 +8,15 @@ async function CheckConnection() {
         if (dataFromLocalStorage) {
             const response = await FetchData(`/api/users/${dataFromLocalStorage.id}`, "GET");
             if (response) {
-                return true
+                return { isLoggedIn: true, userInfo: response }
             }
         }
-        return false
+        EventEmitter.emit('unauthorized')
+        return { isLoggedIn: false, userInfo: null }
     } catch (error) {
         console.warn(error)
-        return false
+        EventEmitter.emit('unauthorized')
+        return { isLoggedIn: false, userInfo: null }
     }
 }
 

@@ -3,8 +3,10 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    background-color: #222;
-    height: 60px;
+    background-color: #FAFAFA;
+    height: 50px;
+    padding: 0px 20px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
   }
   
   .navbar-sticky {
@@ -23,4 +25,17 @@
     display: flex;
     color: #FFF;
   }
+
+  .logout-button {
+    background: #04C45C;
+border-radius: 5px;
+width: 100px;
+height: 30px;
+font-weight: bold;
+font-size: 16px;
+line-height: 19px;
+color: #FFFFFF;
+cursor: pointer;
+
+}
   

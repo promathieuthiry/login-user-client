@@ -16,13 +16,15 @@ import { toast } from 'react-toastify';
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
+  const [userInfo, setUserInfo] = useState(null)
   toast.configure()
 
 
   useEffect(() => {
     async function check() {
-      const isLoggedIn = await CheckConnection()
+      const { isLoggedIn, userInfo } = await CheckConnection()
       setLoggedIn(isLoggedIn)
+      setUserInfo(userInfo)
     }
     check()
   }, [])
@@ -32,13 +34,14 @@ function App() {
       <Credentials.Provider value={{ loggedIn, setLoggedIn }}>
         <Router>
 
-          {/* <Navbar authorized={loggedIn} /> */}
+          {loggedIn && <Navbar authorized={loggedIn} userInfo={userInfo} />}
+
           <Switch>
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />
             {/* <Route path="*" exact component={NotFound} /> */}
 
-            <Route path="/" exact component={() => <Dashboard authorized={loggedIn} />} />
+            <Route path="/" exact component={() => <Dashboard authorized={loggedIn} userInfo={userInfo} />} />
             <Route path="*" exact component={() => <Redirect to="/" />} />
 
           </Switch>

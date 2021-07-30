@@ -65,13 +65,12 @@ function Register() {
     return (
         <div className="connection-wrapper">
             <div className="connection-left-side-wrapper">
-                <img src={Cover} alt="cover" className="image-cover" />
+                <img src={"https://github.com/promathieuthiry/login-user-client/blob/main/src/assets/img/cover.jpg?raw=true"} alt="cover" className="image-cover" />
             </div>
             <div className="connection-right-side-wrapper">
                 <div className="container-connection">
                     <p className="connection-welcome">Welcome</p>
                     <p className="connection-title">Register a new account</p>
-
                     <p className="connection-label">Email</p>
                     <input type="email" name="email" value={registrationData.email} onChange={handleChangeRegistration} className="connection-input"></input>
                     <p className="connection-label" style={{ paddingTop: 11 }}>Password</p>

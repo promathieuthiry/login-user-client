@@ -2,11 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router";
 import Credentials from "../Helper/Context";
 import FetchData from "../Helper/FetchData";
-import loggedInContext from "../Helper/Context"
-import PublicHomePage from "./PublicHomePage";
 import ConnectionListener from "../Connection/ConnectionListener"
+import "./Dashboard.css"
 
-function Dashboard({ authorized }) {
+function Dashboard({ authorized, userInfo }) {
     const [inputData, setInputData] = useState({ firstName: "", lastName: "" });
     const [updateData, setUpdateData] = useState({ firstName: "", lastName: "" });
     const [userList, setUserList] = useState([])
@@ -14,7 +13,7 @@ function Dashboard({ authorized }) {
     let history = useHistory()
 
     useEffect(() => {
-        getData()
+        userInfo && getData()
     }, [])
 
     function handleChange(event) {
@@ -29,32 +28,13 @@ function Dashboard({ authorized }) {
 
     async function getData() {
         try {
-            const response = await FetchData("/api/users", "GET");
+            const response = await FetchData(`/api/users/${userInfo.id}`, "GET");
             setUserList(response)
             console.log(response)
         } catch (err) {
             console.warn(err)
         }
-
     }
-
-    // const handleSubmit = async () => {
-    //     const { firstName, lastName } = inputData
-    //     const requestOptions = {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ firstName, lastName })
-    //     };
-    //     try {
-    //         const response = await fetch('http://localhost:3002/api/users/register', requestOptions)
-    //         const data = response.json()
-    //         console.log(data)
-    //         setInputData({ firstName: "", lastName: "" })
-    //         await getData()
-    //     } catch (error) {
-    //         console.warn(error)
-    //     }
-    // }
 
     const deleteUser = async (id) => {
         try {
@@ -85,14 +65,10 @@ function Dashboard({ authorized }) {
     }
 
     return (
-        <div className="App">
+        <div className="dashboard-wrapper">
             <ConnectionListener />
-            <button onClick={logout}>logout</button>
-
-            {authorized ?
-                <div>
-                    <p>Liste users</p>
-                    {/* <input
+            <p>Liste users</p>
+            {/* <input
                 name="firstName"
                 placeholder="Prénom"
                 value={inputData.firstName}
@@ -108,7 +84,7 @@ function Dashboard({ authorized }) {
 
             <button onClick={handleSubmit}>Ajouter</button> */}
 
-                    <div>
+            {/* <div>
                         {userList.map(user => {
                             return (
                                 <div key={user.id} style={{ display: "flex", flexDirection: 'row' }}>
@@ -134,18 +110,12 @@ function Dashboard({ authorized }) {
                                 </div>
                             )
                         })}
-                    </div>
-                </div>
-                : <PublicHomePage />
-            }
+                    </div> */}
+
         </div>
     )
 
-    function logout() {
-        localStorage.clear()
-        setLoggedIn(false)
-        history.push('/')
-    }
+
 }
 
 export default Dashboard

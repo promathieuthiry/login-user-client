@@ -17,16 +17,12 @@ export default function Navbar({ authorized }) {
             <nav className="navbar">
                 <div className="navbar--link">
                     {/* <img src={Logo} alt="logo" className="navbar--logo" /> */}
-                    <Link to="/" className="navbar--link-item">Home</Link>
+                    {/* <Link to="/" className="navbar--link-item">Home</Link> */}
                 </div>
-                {!authorized && <ul className="navbar--link">
-                    <Link to="/login" className="navbar--link-item">Login</Link>
-                    <Link to="/register" className="navbar--link-item">Register</Link>
-                </ul>}
                 {authorized &&
                     <div>
-                        <span>Coonecté</span>
-                        <button onClick={logout}>logout</button>
+                        <span>Bienvenue</span>
+                        <button onClick={logout} className={"logout-button"}>logout</button>
                     </div>
                 }
 
@@ -44,6 +40,6 @@ export default function Navbar({ authorized }) {
     function logout() {
         localStorage.clear()
         setLoggedIn(false)
-        history.push('/')
+        history.push('/login')
     }
 }
