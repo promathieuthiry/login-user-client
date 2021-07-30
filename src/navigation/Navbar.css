@@ -1,0 +1,26 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #222;
+    height: 60px;
+  }
+  
+  .navbar-sticky {
+    box-shadow: 1px 1px 1px #222;
+    color: #FFF;
+  }
+  
+  .navbar--link-item {
+      color: #FFF;
+      text-decoration: none;
+      margin-right: 20px;
+  }
+
+  .navbar--link {
+    list-style: none;
+    display: flex;
+    color: #FFF;
+  }
+  
