@@ -78,7 +78,9 @@ function Register() {
                     <p className="connection-label" style={{ paddingTop: 11 }}>Repeat password</p>
                     <input type="password" name="passwordConfirmation" value={registrationData.passwordConfirmation} onChange={handleChangeRegistration} className="connection-input" disabled={!registrationData.password}></input>
                     <button onClick={register} className="connection-button-register">Register</button>
-                    <p className="connection-forgot-password" onClick={() => history.goBack()} style={{ marginTop: "20px" }}>Go back</p>
+                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", marginTop: "20px" }}>
+                        <p className="connection-forgot-password" onClick={() => history.goBack()}>Go back</p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -21,7 +21,6 @@ export default function Navbar({ authorized }) {
                 </div>
                 {authorized &&
                     <div>
-                        <span>Bienvenue</span>
                         <button onClick={logout} className={"logout-button"}>logout</button>
                     </div>
                 }

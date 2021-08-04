@@ -27,7 +27,7 @@ function App() {
       setUserInfo(userInfo)
     }
     check()
-  }, [])
+  }, [loggedIn])
 
   return (
     <>

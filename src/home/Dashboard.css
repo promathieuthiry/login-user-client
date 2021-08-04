@@ -1,6 +1,129 @@
 .dashboard-wrapper {
     width: 100%;
-    /* height: calc(100%-50px); */
-    height: 100%;
-    background-color: red;
+    height: calc(100vh - 54px);
+    
 }
+
+.dashboard-title {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 35px;
+    color: #1A202C;
+    padding-top: 20px;
+}
+
+.dashboard-left-side {
+    width: 50%;
+    height: 100%;
+    background-color: #FAFAFA;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    align-items: flex-start;
+}
+
+.dashboard-wrapper-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 22px;
+}
+
+.dashboard-image {
+    width: 150px;
+    height: 150px;
+    background-color: #FFF;
+    border-radius: 50%;
+    border: 1px solid #E8E8E8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.edit-photo-button {
+    background: #2064FC;
+border-radius: 50%;
+width: 40px;
+height: 40px;
+font-size: 16px;
+line-height: 19px;
+color: #FFFFFF;
+cursor: pointer;
+box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+transition: all 0.3s ease 0s;
+outline: none;
+position: absolute;
+bottom: 10px;
+right: 0px
+}
+
+.edit-photo-button:hover {
+    background-color: #0250f9;
+    transform: translateY(-2px);
+  }
+
+.dashboard-label{
+    font-size: 16px;
+    line-height: 19px;
+    color: #4A5568;
+    padding-bottom: 11px;
+}
+
+.dashboard-input {
+    border: 1px solid #E8E8E8;
+border-radius: 5px;
+width: 250px;
+height: 50px;
+font-size: 14px;
+line-height: 16px;
+color: #2D3748;
+padding: 0px 20px;
+}
+
+.dashboard-input-same-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 600px;
+}
+
+.dashboard-input-label-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-one-line-wrapper {
+    padding-top: 22px;
+    width: 100%;
+}
+
+.save-button {
+    background: #2064FC;
+border-radius: 5px;
+width: 100px;
+height: 30px;
+font-size: 16px;
+line-height: 19px;
+color: #FFFFFF;
+cursor: pointer;
+margin-top: 22px;
+box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+transition: all 0.3s ease 0s;
+outline: none;
+}
+
+.save-button:hover {
+    background-color: #0250f9;
+    transform: translateY(-2px);
+  }
+

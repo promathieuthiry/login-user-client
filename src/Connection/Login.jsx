@@ -81,7 +81,7 @@ function Login() {
                     </div>
                     <button onClick={login} className="connection-button-submit">Login</button>
                 </div>
-                <p className="connection-footer-label">Dont have an account? <span style={{ color: "#2B6CB0", cursor: "pointer" }} onClick={goToRegisterPage}>Join free today</span></p>
+                <p className="connection-footer-label">Dont have an account? <span style={{ color: "#2B6CB0", cursor: "pointer" }} className={"connection-free-today"} onClick={goToRegisterPage}>Join free today</span></p>
 
             </div>
         </div>

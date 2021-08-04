@@ -11,7 +11,7 @@ async function FetchData(url, method, body) {
         const route = `${process.env.REACT_APP_API_BASE_URL}${url}`
         try {
             const response = await fetch(route, requestOptions)
-            if (response.status === 400 || response.status === 401) {
+            if (response.status === 401) {
                 EventEmitter.emit('unauthorized')
                 return false
             }

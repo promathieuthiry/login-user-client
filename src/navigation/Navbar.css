@@ -3,10 +3,10 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    background-color: #FAFAFA;
     height: 50px;
     padding: 0px 20px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    margin-bottom: 4px;
   }
   
   .navbar-sticky {
@@ -26,16 +26,22 @@
     color: #FFF;
   }
 
-  .logout-button {
-    background: #04C45C;
+  
+.logout-button {
+  border: 1px solid #2D3748;
+  background-color: #FFF;
 border-radius: 5px;
 width: 100px;
 height: 30px;
-font-weight: bold;
 font-size: 16px;
 line-height: 19px;
-color: #FFFFFF;
+color: #2D3748;
 cursor: pointer;
-
+transition: all 0.3s ease 0s;
+outline: none;
 }
-  
+
+.logout-button:hover {
+  background-color: #2D3748;
+  color: #FFF;
+}
