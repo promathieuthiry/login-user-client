@@ -51,6 +51,15 @@
     cursor: pointer;
 }
 
+.dashboard-profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #E8E8E8;
+
+}
+
 .edit-photo-button {
     background: #2064FC;
 border-radius: 50%;
@@ -165,6 +174,8 @@ outline: none;
     justify-content: center;
     align-items: center;
 }
+
+
 
 .dashboard-user-name{
     font-size: 16px;

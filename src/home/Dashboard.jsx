@@ -10,11 +10,15 @@ import emitToast from "../Helper/toastEmitter";
 
 
 function Dashboard({ authorized, userInfo }) {
-    const [inputData, setInputData] = useState({ firstName: userInfo?.firstName ? userInfo.firstName : "", lastName: userInfo?.lastName ? userInfo?.lastName : "", occupation: userInfo?.occupation ? userInfo?.occupation : "", email: userInfo?.email ? userInfo.email : "", phone: userInfo?.phone ? userInfo.phone : "", address: userInfo?.address ? userInfo.address : "", city: userInfo?.city ? userInfo.city : "", state: userInfo?.state ? userInfo.state : "", zipcode: userInfo?.zipcode ? userInfo.zipcode : "", country: userInfo?.country ? userInfo.country : "", password: "", password_confirmation: "" });
+    const [inputData, setInputData] = useState({ firstName: userInfo?.firstName ? userInfo.firstName : "", lastName: userInfo?.lastName ? userInfo?.lastName : "", occupation: userInfo?.occupation ? userInfo?.occupation : "", email: userInfo?.email ? userInfo.email : "", phone: userInfo?.phone ? userInfo.phone : "", address: userInfo?.address ? userInfo.address : "", city: userInfo?.city ? userInfo.city : "", state: userInfo?.state ? userInfo.state : "", zipcode: userInfo?.zipcode ? userInfo.zipcode : "", country: userInfo?.country ? userInfo.country : "", password: "", password_confirmation: "", profilPicture: false });
     const [selectedFile, setSelectedFile] = React.useState(null);
     const [checked, setChecked] = React.useState(false);
 
     const hiddenFileInput = useRef(null);
+
+    useEffect(() => {
+        userInfo?.id && getProfilePic()
+    }, [])
 
     const handleChangeCheckbox = () => {
         setChecked(!checked);
@@ -24,6 +28,17 @@ function Dashboard({ authorized, userInfo }) {
     function handleChange(event) {
         const { name, value } = event.target;
         setInputData((prevInputData) => ({ ...prevInputData, [name]: value }));
+    }
+
+    async function getProfilePic() {
+        try {
+            const { hasImage, idfiles } = await FetchData(`/api/users/has/img/${userInfo?.id}`, 'GET')
+            if (hasImage) {
+                setInputData({ ...inputData, profilPicture: idfiles })
+            }
+        } catch (error) {
+            console.warn(error)
+        }
     }
 
     const updateId = async () => {
@@ -41,10 +56,8 @@ function Dashboard({ authorized, userInfo }) {
                     return (
                         emitToast("error", error.message)
                     )
-                }
-                )
+                })
             }
-            console.log(response)
         } catch (error) {
 
         }
@@ -56,9 +69,7 @@ function Dashboard({ authorized, userInfo }) {
     }
 
     async function fileSelectHandler(event) {
-        // setSelectedFile(event.target.files[0])
         const image = event.target.files[0]
-        console.log(image, "image")
         const data = new FormData()
         data.append('file', image)
         data.append('users_id', userInfo.id)
@@ -67,19 +78,27 @@ function Dashboard({ authorized, userInfo }) {
         if (credentials) {
             const requestOptions = {
                 method: "POST",
-                // headers: { 'Content-Type': 'multipart/form-data', 'x-auth-token': credentials.token },
                 headers: { 'x-auth-token': credentials.token },
                 body: data
             };
             const route = `${process.env.REACT_APP_API_BASE_URL}/api/users/image`
             try {
+                debugger
                 const response = await fetch(route, requestOptions)
-                const data = response.json()
-                console.log(data, "data")
+                const { message, idfiles } = await response.json()
+                if (message === "Sent with success") {
+                    emitToast("success", "Image updated with success")
+                    setInputData({ ...inputData, profilPicture: idfiles.insertId })
+                }
             } catch (error) {
+                emitToast("error", "An error occured while uploading")
                 console.warn(error)
             }
         }
+    }
+
+    function returnImage() {
+        return `${process.env.REACT_APP_API_BASE_URL}/api/users/img/${inputData.profilPicture}`
     }
 
 
@@ -99,10 +118,13 @@ function Dashboard({ authorized, userInfo }) {
 
                     <div className="dashboard-wrapper-image">
                         <div className="dashboard-image" onClick={addFile}>
-
-                            <IconContext.Provider value={{ style: { fontSize: '72px', color: "#1A202C" } }}>
-                                <MdPerson />
-                            </IconContext.Provider>
+                            {inputData.profilPicture ?
+                                <img src={returnImage()} alt="profile" className="dashboard-profile-pic" />
+                                :
+                                <IconContext.Provider value={{ style: { fontSize: '72px', color: "#1A202C" } }}>
+                                    <MdPerson />
+                                </IconContext.Provider>
+                            }
                             {/* <input type="file" name="file" ref={hiddenFileInput} onChange={addFile} style={{ display: "none" }} /> */}
                             <input type="file" name="file" ref={hiddenFileInput} onChange={fileSelectHandler} hidden accept="image/*" />
                             <button className={"edit-photo-button"}>
