@@ -1,7 +1,8 @@
 .dashboard-wrapper {
     width: 100%;
     height: calc(100vh - 54px);
-    
+    display: flex;
+    flex-direction: row;
 }
 
 .dashboard-title {
@@ -127,3 +128,73 @@ outline: none;
     transform: translateY(-2px);
   }
 
+.dashboard-right-side {
+    width: 50%;
+    height: 100%;
+    background-color: #FFF;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-card-preview-wrapper {
+    max-width: 90%;
+    min-width: 300px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+.dashboard-user-card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.dashboard-user-profile-picture {
+    width: 50px;
+    height: 50px;
+    background-color: #FFF;
+    border-radius: 50%;
+    border: 1px solid #E8E8E8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-user-name{
+    font-size: 16px;
+    line-height: 19px;
+    color: #4A5568;
+    font-weight: bold;
+}
+
+.dashboard-user-occupation {
+    font-size: 13px;
+    line-height: 19px;
+    color: #4A5568;
+    font-style: italic;
+}
+
+.dashboard-user-phone {
+    font-size: 14px;
+    color: #4A5568;
+    font-weight: bold;
+
+}
+
+.dashboard-user-address {
+    font-size: 14px;
+    color: #4A5568;
+}
+
+.dashboard-user-zipcode {
+    font-size: 14px;
+    line-height: 19px;
+    color: #4A5568;
+    text-overflow: ellipsis;
+}

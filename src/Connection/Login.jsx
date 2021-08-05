@@ -32,7 +32,8 @@ function Login() {
             body: JSON.stringify({ email, password })
         };
         try {
-            const response = await fetch('http://localhost:3002/api/users/login', requestOptions)
+            const route = `${process.env.REACT_APP_API_BASE_URL}/api/users/login`
+            const response = await fetch(route, requestOptions)
             const data = await response.json()
 
             if (data.message === "Email unknown") {

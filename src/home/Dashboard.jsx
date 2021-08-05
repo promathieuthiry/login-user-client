@@ -4,13 +4,13 @@ import Credentials from "../Helper/Context";
 import FetchData from "../Helper/FetchData";
 import ConnectionListener from "../Connection/ConnectionListener"
 import "./Dashboard.css"
-import { MdModeEdit, MdPerson } from "react-icons/md";
+import { MdModeEdit, MdPerson, MdPhone, MdRoom, MdEmail } from "react-icons/md";
 import { IconContext } from "react-icons";
 import emitToast from "../Helper/toastEmitter";
 
 
 function Dashboard({ authorized, userInfo }) {
-    const [inputData, setInputData] = useState({ firstName: userInfo?.firstName ? userInfo.firstName : "", lastName: userInfo?.lastName ? userInfo?.lastName : "", email: userInfo?.email ? userInfo.email : "", phone: userInfo?.phone ? userInfo.phone : "", address: userInfo?.address ? userInfo.address : "", city: userInfo?.city ? userInfo.city : "", state: userInfo?.state ? userInfo.state : "", zipcode: userInfo?.zipcode ? userInfo.zipcode : "", country: userInfo?.country ? userInfo.country : "", password: "", password_confirmation: "" });
+    const [inputData, setInputData] = useState({ firstName: userInfo?.firstName ? userInfo.firstName : "", lastName: userInfo?.lastName ? userInfo?.lastName : "", occupation: userInfo?.occupation ? userInfo?.occupation : "", email: userInfo?.email ? userInfo.email : "", phone: userInfo?.phone ? userInfo.phone : "", address: userInfo?.address ? userInfo.address : "", city: userInfo?.city ? userInfo.city : "", state: userInfo?.state ? userInfo.state : "", zipcode: userInfo?.zipcode ? userInfo.zipcode : "", country: userInfo?.country ? userInfo.country : "", password: "", password_confirmation: "" });
     const [selectedFile, setSelectedFile] = React.useState(null);
     const [checked, setChecked] = React.useState(false);
 
@@ -26,23 +26,15 @@ function Dashboard({ authorized, userInfo }) {
         setInputData((prevInputData) => ({ ...prevInputData, [name]: value }));
     }
 
-    const deleteUser = async (id) => {
-        try {
-            await fetch(`http://localhost:3002/api/users/delete/${id}`, { method: 'DELETE' })
-        } catch (err) {
-            console.warn(err)
-        }
-    }
-
     const updateId = async () => {
-        const { firstName, lastName, email, phone, address, city, state, zipcode, country, password, password_confirmation } = inputData
-        const body = { firstName, lastName, email, phone, address, city, state, zipcode, country, password, password_confirmation }
+        const { firstName, lastName, occupation, email, phone, address, city, state, zipcode, country, password, password_confirmation } = inputData
+        const body = { firstName, lastName, occupation, email, phone, address, city, state, zipcode, country, password, password_confirmation }
         try {
             const response = await FetchData(`/api/users/update/${userInfo.id}`, 'PUT', body)
             if (response.message[0] === "Updated with success") {
-                const { firstName, lastName, email, phone, address, city, state, zipcode, country, password } = response.data
+                const { firstName, lastName, occupation, email, phone, address, city, state, zipcode, country, password } = response.data
                 emitToast("success", "Updated with success")
-                setInputData({ firstName, lastName, email, phone, address, city, state, zipcode, country })
+                setInputData({ firstName, lastName, occupation, email, phone, address, city, state, zipcode, country })
             }
             else {
                 response.message.map(error => {
@@ -122,8 +114,8 @@ function Dashboard({ authorized, userInfo }) {
                         </div>
                     </div>
 
-                    <img src={"http://localhost/Users/pro/Documents/Développement web/pratique/login-user/login-user-server/app/utilities/uploads/1628040167517-login-user-.jpg"} />
-                    <div className="dashboard-input-same-line">
+                    {/* <img src={"http://localhost/Users/pro/Documents/Développement web/pratique/login-user/login-user-server/app/utilities/uploads/1628040167517-login-user-.jpg"} /> */}
+                    <div className="dashboard-input-same-line" >
                         <div className="dashboard-input-label-column">
                             <p className="dashboard-label">First Name</p>
                             <input type="text" name="firstName" value={inputData.firstName} onChange={handleChange} className="dashboard-input" placeholder="Thomas D"></input>
@@ -133,14 +125,23 @@ function Dashboard({ authorized, userInfo }) {
                             <input type="text" name="lastName" value={inputData.lastName} onChange={handleChange} className="dashboard-input" placeholder="Hardisson"></input>
                         </div>
                     </div>
+
+                    <div className="dashboard-input-same-line" style={{ paddingTop: 22 }}>
+                        <div className="dashboard-input-label-column">
+                            <p className="dashboard-label">Occupation</p>
+                            <input type="text" name="occupation" value={inputData.occupation} onChange={handleChange} className="dashboard-input" placeholder="Web developer"></input>
+                        </div>
+                        <div className="dashboard-input-label-column">
+                            <p className="dashboard-label">Contacts Number</p>
+                            <input type="number" name="phone" value={inputData.phone} onChange={handleChange} className="dashboard-input" placeholder="661-724-7734"></input>
+                        </div>
+                    </div>
+
                     <div className="dashboard-one-line-wrapper">
                         <p className="dashboard-label">Email</p>
                         <input type="email" name="email" value={inputData.email} onChange={handleChange} className="dashboard-input" style={{ width: "100%" }} placeholder="thomashardisson@gmail.com"></input>
                     </div>
-                    <div className="dashboard-one-line-wrapper">
-                        <p className="dashboard-label">Contacts Number</p>
-                        <input type="number" name="phone" value={inputData.phone} onChange={handleChange} className="dashboard-input" style={{ width: "100%", maxWidth: "600px" }} placeholder="661-724-7734"></input>
-                    </div>
+
                     <div className="dashboard-one-line-wrapper">
                         <p className="dashboard-label">Address</p>
                         <input type="text" name="address" value={inputData.address} onChange={handleChange} className="dashboard-input" style={{ width: "100%", maxWidth: "600px" }} placeholder="1368 Hayhurst lane."></input>
@@ -180,6 +181,58 @@ function Dashboard({ authorized, userInfo }) {
                         </div>
                     }
                     <button onClick={updateId} className={"save-button"}>Save</button>
+                </div>
+            </div>
+            <div className="dashboard-right-side">
+                <div className="dashboard-card-preview-wrapper">
+                    <div className="dashboard-user-card-header" style={{ borderBottom: "1px solid #E8E8E8", paddingBottom: 10 }}>
+                        <div className="dashboard-user-profile-picture">
+                            <IconContext.Provider value={{ style: { fontSize: '42px', color: "#1A202C" } }}>
+                                <MdPerson />
+                            </IconContext.Provider>
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", paddingLeft: 10 }}>
+                            <p className="dashboard-user-name">{inputData?.firstName ? inputData?.firstName : "ND"} {inputData?.lastName ? inputData?.lastName : "ND"}</p>
+                            <p className="dashboard-user-occupation">{inputData?.occupation ? inputData?.occupation : "ND"}</p>
+                        </div>
+                    </div>
+
+                    {/* <div style={{ backgroundColor: "#E8E8E8", width: "100%", paddingTop: 10, paddingBottom: 10, height: 1 }} /> */}
+                    <div className="dashboard-user-card-header">
+                        <div className="dashboard-user-profile-picture" style={{ border: "none" }}>
+                            <IconContext.Provider value={{ style: { fontSize: '32px', color: "#28A21A" } }}>
+                                <MdPhone />
+                            </IconContext.Provider>
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", paddingLeft: 10 }}>
+                            <p className="dashboard-user-phone">{inputData.phone}</p>
+                        </div>
+                    </div>
+
+                    <div className="dashboard-user-card-header">
+                        <div className="dashboard-user-profile-picture" style={{ border: "none" }}>
+                            <IconContext.Provider value={{ style: { fontSize: '32px', color: "#4A5568" } }}>
+                                <MdEmail />
+                            </IconContext.Provider>
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", paddingLeft: 10 }}>
+                            <p className="dashboard-user-phone">{inputData.email}</p>
+                        </div>
+                    </div>
+
+
+                    <div className="dashboard-user-card-header">
+                        <div className="dashboard-user-profile-picture" style={{ border: "none" }}>
+                            <IconContext.Provider value={{ style: { fontSize: '32px', color: "#E73932" } }}>
+                                <MdRoom />
+                            </IconContext.Provider>
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", paddingLeft: 10 }}>
+                            <p className="dashboard-user-address">{inputData?.address}   {inputData?.city}</p>
+                            <p className="dashboard-user-zipcode">{inputData?.state} {inputData?.zipcode} {inputData.country}</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div >

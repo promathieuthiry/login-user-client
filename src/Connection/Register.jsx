@@ -35,11 +35,14 @@ function Register() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password, passwordConfirmation })
         };
+        const routeLogin = `${process.env.REACT_APP_API_BASE_URL}/api/users/login`
+        const routeRegister = `${process.env.REACT_APP_API_BASE_URL}/api/users/register`
+
         try {
-            const register = await fetch('http://localhost:3002/api/users/register', requestOptions)
+            const register = await fetch(routeRegister, requestOptions)
             const { isRegistered, message } = await register.json()
             if (isRegistered) {
-                const response = await fetch('http://localhost:3002/api/users/login', requestOptions)
+                const response = await fetch(routeLogin, requestOptions)
                 const data = await response.json()
                 if (data.credentials) {
                     localStorage.setItem('credentials', JSON.stringify(data.credentials));
