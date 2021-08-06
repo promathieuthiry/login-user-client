@@ -77,10 +77,10 @@ function Login() {
                     <input type="email" name="email" value={loginData.email} onChange={handleChangeLogin} className="connection-input"></input>
                     <p className="connection-label" style={{ paddingTop: 11 }}>Password</p>
                     <input type="password" name="password" value={loginData.password} onChange={handleChangeLogin} className="connection-input"></input>
-                    <div className="connection-forgot-password-wrapper">
+                    {/* <div className="connection-forgot-password-wrapper">
                         <p className="connection-forgot-password">Forgot password?</p>
-                    </div>
-                    <button onClick={login} className="connection-button-submit">Login</button>
+                    </div> */}
+                    <button onClick={login} className="connection-button-submit" style={{ marginTop: 28 }}>Login</button>
                 </div>
                 <p className="connection-footer-label">Dont have an account? <span style={{ color: "#2B6CB0", cursor: "pointer" }} className={"connection-free-today"} onClick={goToRegisterPage}>Join free today</span></p>
 
