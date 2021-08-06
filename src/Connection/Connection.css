@@ -1,9 +1,9 @@
 
 .connection-wrapper {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     /* mobile viewport bug fix */
-    height: -webkit-fill-available;
+    /* min-height: -webkit-fill-available; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -177,8 +177,7 @@ transition: all 0.3s ease 0s;
     font-size: 16px;
 line-height: 19px;
 color: #616161;
-position: absolute;
-bottom: 50px;
+margin-top: 28px;
 }
 
 @media only screen and (max-width: 1422px){
@@ -188,6 +187,14 @@ bottom: 50px;
     .connection-right-side-wrapper {
         width: 100%;
     }
+    .connection-wrapper {
+        flex-direction: column;
+        height: -webkit-fill-available;
+    }
+
+
+    
+
 }
 
 @media only screen and (max-width: 350px){
@@ -195,4 +202,5 @@ bottom: 50px;
        width: 100%;
        padding: 0px 10px;
     }
+  
 }
