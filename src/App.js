@@ -34,14 +34,15 @@ function App() {
       <Credentials.Provider value={{ loggedIn, setLoggedIn }}>
         <Router>
 
-          {loggedIn && <Navbar authorized={loggedIn} userInfo={userInfo} />}
+          <Navbar authorized={loggedIn} userInfo={userInfo} />
 
           <Switch>
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />
             {/* <Route path="*" exact component={NotFound} /> */}
 
-            <Route path="/" exact component={() => <Dashboard authorized={loggedIn} userInfo={userInfo} />} />
+            <Route path="/" exact component={() => <Dashboard authorized={loggedIn} userInfo={userInfo} isEdit={false} />} />
+            <Route path="/edit" exact component={() => <Dashboard authorized={loggedIn} userInfo={userInfo} isEdit={true} />} />
             <Route path="*" exact component={() => <Redirect to="/" />} />
 
           </Switch>
