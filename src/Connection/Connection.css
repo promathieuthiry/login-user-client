@@ -1,7 +1,7 @@
 
 .connection-wrapper {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     /* mobile viewport bug fix */
     /* min-height: -webkit-fill-available; */
     display: flex;
@@ -191,10 +191,6 @@ margin-top: 28px;
         flex-direction: column;
         height: -webkit-fill-available;
     }
-
-
-    
-
 }
 
 @media only screen and (max-width: 350px){
@@ -202,5 +198,4 @@ margin-top: 28px;
        width: 100%;
        padding: 0px 10px;
     }
-  
 }

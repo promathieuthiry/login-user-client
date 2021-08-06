@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MdModeEdit, MdPerson, MdPhone, MdRoom, MdEmail } from "react-icons/md";
 import { IconContext } from "react-icons";
+import RingLoader from "react-spinners/FadeLoader";
 
-export default function EditInfo({ inputData, fileSelectHandler, handleChange, updateId }) {
+
+
+export default function EditInfo({ inputData, fileSelectHandler, handleChange, updateId, isLoading }) {
 
     const [checked, setChecked] = React.useState(false);
     const hiddenFileInput = useRef(null);
@@ -28,15 +31,21 @@ export default function EditInfo({ inputData, fileSelectHandler, handleChange, u
 
             <div className="dashboard-wrapper-image">
                 <div className="dashboard-image" onClick={addFile}>
-                    {inputData.profilPicture ?
-                        <div className="dashboard-profile-pic-wrapper">
-                            <img src={`${process.env.REACT_APP_API_BASE_URL}/api/users/img/${inputData.profilPicture}`} alt="profile" className="dashboard-profile-pic" />
+                    {/* <RingLoader color={"#000"} loading={isLoading} size={50} /> */}
+                    {isLoading ?
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", paddingLeft: 15 }}>
+                            <RingLoader color={"#04C45C"} loading={isLoading} size={50} />
                         </div>
-                        :
-                        <IconContext.Provider value={{ style: { fontSize: '72px', color: "#1A202C" } }}>
-                            <MdPerson />
-                        </IconContext.Provider>
+                        : inputData.profilPicture ?
+                            <div className="dashboard-profile-pic-wrapper">
+                                <img src={`${process.env.REACT_APP_API_BASE_URL}/api/users/img/${inputData.profilPicture}`} alt="profile" className="dashboard-profile-pic" />
+                            </div>
+                            :
+                            <IconContext.Provider value={{ style: { fontSize: '72px', color: "#1A202C" } }}>
+                                <MdPerson />
+                            </IconContext.Provider>
                     }
+
                     <input type="file" name="file" ref={hiddenFileInput} onChange={fileSelectHandler} hidden accept="image/*" />
                     <button className={"edit-photo-button"}>
                         <IconContext.Provider value={{ style: { fontSize: '18px', color: "#FFF" } }}>
